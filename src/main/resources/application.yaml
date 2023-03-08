@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: wise_task_graph
+
+server:
+  port: 8080
+
+grpc:
+  port: 6565

@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.4'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "com.google.protobuf" version "0.9.2"
+}
+
+group = 'ru.leti'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/resources/proto'
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/Terross/wise-task-library")
+        credentials {
+            username = 'Terross'
+            password = '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' //Eternal public token for library
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'ru.leti:wise-task-library:1.0.2'
+
+    implementation 'io.github.lognet:grpc-spring-boot-starter:5.0.0'
+    implementation 'com.salesforce.servicelibs:reactor-grpc-stub:1.2.3'
+    implementation 'io.grpc:grpc-protobuf:1.53.0'
+    implementation 'io.grpc:grpc-stub:1.53.0'
+    implementation 'com.google.protobuf:protobuf-java-util:3.21.7'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    annotationProcessor 'no.entur.mapstruct.spi:protobuf-spi-impl:1.42'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+}
+
+protobuf {
+    protoc {
+        // The artifact spec for the Protobuf Compiler
+        artifact = "com.google.protobuf:protoc:3.21.7"
+    }
+    clean {
+        delete protobuf.generatedFilesBaseDir
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.53.0"
+        }
+        reactor {
+            artifact = "com.salesforce.servicelibs:reactor-grpc:1.2.3"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+            reactor {}
+        }
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
