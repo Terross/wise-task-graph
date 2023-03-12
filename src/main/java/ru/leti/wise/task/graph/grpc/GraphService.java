@@ -8,8 +8,11 @@ import ru.leti.GraphOuterClass.CreateGraphRequest;
 import ru.leti.GraphOuterClass.CreateGraphResponse;
 import ru.leti.GraphOuterClass.GetGraphByIdRequest;
 import ru.leti.GraphOuterClass.GetGraphByIdResponse;
+import ru.leti.GraphOuterClass.GenerateGraphRequest;
+import ru.leti.GraphOuterClass.GenerateGraphResponse;
 import ru.leti.ReactorGraphServiceGrpc;
 import ru.leti.wise.task.graph.logic.CreateGraphOperation;
+import ru.leti.wise.task.graph.logic.GenerateRandomGraphOperation;
 import ru.leti.wise.task.graph.logic.GetGraphByIdOperation;
 
 import static java.util.UUID.fromString;
@@ -21,6 +24,7 @@ public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
 
     private final GetGraphByIdOperation getGraphByIdOperation;
     private final CreateGraphOperation createGraphOperation;
+    private final GenerateRandomGraphOperation generateRandomGraphOperation;
 
     @Override
     public Mono<GetGraphByIdResponse> getGraphById(Mono<GetGraphByIdRequest> request) {
@@ -30,5 +34,10 @@ public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
     @Override
     public Mono<CreateGraphResponse> createGraph(Mono<CreateGraphRequest> request) {
         return request.flatMap(req -> createGraphOperation.activate(req.getGraph()));
+    }
+
+    @Override
+    public Mono<GenerateGraphResponse> generateRandomGraph(Mono<GenerateGraphRequest> request) {
+        return request.flatMap(generateRandomGraphOperation::activate);
     }
 }

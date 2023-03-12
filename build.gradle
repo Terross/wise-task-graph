@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'ru.leti'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '17'
 
 configurations {
@@ -29,14 +29,14 @@ repositories {
         url = uri("https://maven.pkg.github.com/Terross/wise-task-library")
         credentials {
             username = 'Terross'
-            password = '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' //Eternal public token for library
+            password = 'ghp_YH9fSd6kw9vz B6Q2anlmewLO3ajq0b4YuQPN' //Eternal public token for library
         }
     }
 }
 
 dependencies {
 
-    implementation 'ru.leti:wise-task-library:1.0.2'
+    implementation 'ru.leti:wise-task-library:1.0.3'
 
     implementation 'io.github.lognet:grpc-spring-boot-starter:5.0.0'
     implementation 'com.salesforce.servicelibs:reactor-grpc-stub:1.2.3'

@@ -3,7 +3,6 @@ package ru.leti.wise.task.graph.mapper;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import ru.leti.GraphOuterClass;
 import ru.leti.wise.task.graph.domain.Color;
 import ru.leti.wise.task.graph.domain.Edge;
@@ -34,6 +33,12 @@ public interface GraphMapper {
 
     Edge edgeRequestToEdge(GraphOuterClass.Edge edge);
 
+    @Mapping(target = "isDirect", source = "direct")
+    GraphOuterClass.Graph commonGraphToGraphResponse(ru.leti.wise.task.graph.model.Graph graph);
+
+    GraphOuterClass.Vertex commonVertexToVertexResponse(ru.leti.wise.task.graph.model.Vertex vertex);
+
+    GraphOuterClass.Edge commonEdgeToEdgeResponse(ru.leti.wise.task.graph.model.Edge edge);
 
     default GraphOuterClass.Color mapColor(Color color) {
         return GraphOuterClass.Color.valueOf(color.name());
@@ -41,6 +46,10 @@ public interface GraphMapper {
 
     default Color mapColorRequest(GraphOuterClass.Color color) {
         return Color.valueOf(color.name());
+    }
+
+    default GraphOuterClass.Color mapCommonColor(ru.leti.wise.task.graph.model.Color color) {
+        return GraphOuterClass.Color.valueOf(color.name());
     }
 
 }
