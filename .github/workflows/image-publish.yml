@@ -49,3 +49,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            USERNAME=${{ github.actor }}
+            TOKEN=${{ secrets.WISE_TASK_LIBRARY }}
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.WISE_TASK_LIBRARY }}
