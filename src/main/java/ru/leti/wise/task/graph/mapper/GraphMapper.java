@@ -3,7 +3,7 @@ package ru.leti.wise.task.graph.mapper;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import ru.leti.GraphOuterClass;
+import ru.leti.wise.task.graph.GraphOuterClass;
 import ru.leti.wise.task.graph.domain.Color;
 import ru.leti.wise.task.graph.domain.Edge;
 import ru.leti.wise.task.graph.domain.Graph;

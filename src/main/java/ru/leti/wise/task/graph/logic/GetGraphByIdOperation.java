@@ -5,7 +5,7 @@ import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import ru.leti.GraphOuterClass.GetGraphByIdResponse;
+import ru.leti.wise.task.graph.GraphGrpc.GetGraphByIdResponse;
 import ru.leti.wise.task.graph.domain.Graph;
 import ru.leti.wise.task.graph.mapper.GraphMapper;
 import ru.leti.wise.task.graph.repository.GraphRepository;

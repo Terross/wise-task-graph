@@ -24,13 +24,14 @@ sourceSets {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     jcenter()
     google()
     maven {
         url = uri("https://maven.pkg.github.com/Terross/wise-task-library")
         credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME") //ghp_qjIOixTAD9J TzVc2aXZeXXCVIleU8o09rCot
             password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
         }
     }
