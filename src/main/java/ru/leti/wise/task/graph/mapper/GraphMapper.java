@@ -3,11 +3,14 @@ package ru.leti.wise.task.graph.mapper;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import ru.leti.wise.task.graph.GraphOuterClass;
 import ru.leti.wise.task.graph.domain.Color;
 import ru.leti.wise.task.graph.domain.Edge;
 import ru.leti.wise.task.graph.domain.Graph;
 import ru.leti.wise.task.graph.domain.Vertex;
+
+import java.util.UUID;
 
 
 @Mapper(componentModel = "spring",
@@ -33,8 +36,9 @@ public interface GraphMapper {
 
     Edge edgeRequestToEdge(GraphOuterClass.Edge edge);
 
-    @Mapping(target = "isDirect", source = "direct")
-    GraphOuterClass.Graph commonGraphToGraphResponse(ru.leti.wise.task.graph.model.Graph graph);
+    @Mapping(target = "isDirect", source = "graph.direct")
+    @Mapping(target = ".", source = "graph")
+    GraphOuterClass.Graph commonGraphToGraphResponse(ru.leti.wise.task.graph.model.Graph graph, UUID id);
 
     GraphOuterClass.Vertex commonVertexToVertexResponse(ru.leti.wise.task.graph.model.Vertex vertex);
 
@@ -51,5 +55,4 @@ public interface GraphMapper {
     default GraphOuterClass.Color mapCommonColor(ru.leti.wise.task.graph.model.Color color) {
         return GraphOuterClass.Color.valueOf(color.name());
     }
-
 }

@@ -3,6 +3,7 @@ package ru.leti.wise.task.graph.logic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import ru.leti.wise.task.graph.GraphGrpc;
 import ru.leti.wise.task.graph.GraphGrpc.GenerateGraphRequest;
 import ru.leti.wise.task.graph.GraphGrpc.GenerateGraphResponse;
 import ru.leti.wise.task.graph.mapper.GraphMapper;
@@ -10,6 +11,7 @@ import ru.leti.wise.task.graph.model.Color;
 import ru.leti.wise.task.graph.model.Edge;
 import ru.leti.wise.task.graph.model.Graph;
 import ru.leti.wise.task.graph.model.Vertex;
+import ru.leti.wise.task.graph.repository.GraphRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ import static java.util.concurrent.ThreadLocalRandom.current;
 public class GenerateRandomGraphOperation {
 
     private final GraphMapper graphMapper;
+    private final GraphRepository graphRepository;
 
     private static final int MIN_WEIGHT = 1;
     private static final int MAX_WEIGHT = 15;
@@ -29,7 +32,10 @@ public class GenerateRandomGraphOperation {
     private static final int MAX_COORDINATE = 1000;
 
     public Mono<GenerateGraphResponse> activate(GenerateGraphRequest request) {
-        return Mono.just(generateGraphResponse(request));
+        var graph = generateGraphResponse(request);
+        return request.getIsSaved()
+                ? graphRepository.save(graphMapper.graphRequestToGraph(graph.getGraph())).map((__) -> graph)
+                : Mono.just(graph);
     }
 
     private GenerateGraphResponse generateGraphResponse(GenerateGraphRequest request) {
@@ -38,7 +44,7 @@ public class GenerateRandomGraphOperation {
                         .commonGraphToGraphResponse(generateGraph(
                                 request.getVertexCount(),
                                 request.getEdgeCount(),
-                                request.getIsDirect())))
+                                request.getIsDirect()), randomUUID()))
                 .build();
     }
 
