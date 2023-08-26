@@ -3,8 +3,6 @@ COPY --chown=gradle:gradle . /src
 WORKDIR /src
 ARG USERNAME
 ARG TOKEN
-RUN echo $USERNAME
-RUN echo $TOKEN
 
 RUN USERNAME=$USERNAME TOKEN=$TOKEN gradle build --no-daemon
 
