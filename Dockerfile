@@ -9,6 +9,7 @@ RUN USERNAME=$USERNAME TOKEN=$TOKEN gradle build --no-daemon
 FROM openjdk:17
 
 EXPOSE 6565
+EXPOSE 8080
 
 RUN mkdir /app
 

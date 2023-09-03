@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: wise-task-graph
   data:
     mongodb:
       host: localhost
@@ -10,3 +12,27 @@ server:
 
 grpc:
   port: 6565
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+management:
+  tracing:
+    sampling:
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  metrics:
+    tags:
+      application: ${spring.application.name}
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  zipkin:
+    tracing:
+      endpoint: http://${TEMPO_HOST:localhost}:${TEMPO_PORT:9411}/api/v2/spans

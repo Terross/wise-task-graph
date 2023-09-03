@@ -1,5 +1,6 @@
 package ru.leti.wise.task.graph.grpc;
 
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.lognet.springboot.grpc.GRpcService;
@@ -14,11 +15,13 @@ import ru.leti.wise.task.graph.ReactorGraphServiceGrpc;
 import ru.leti.wise.task.graph.logic.CreateGraphOperation;
 import ru.leti.wise.task.graph.logic.GenerateRandomGraphOperation;
 import ru.leti.wise.task.graph.logic.GetGraphByIdOperation;
+import ru.leti.wise.task.graph.util.LogGrpcInterceptor;
 
 import static java.util.UUID.fromString;
 
 @Slf4j
-@GRpcService
+@Observed
+@GRpcService(interceptors = { LogGrpcInterceptor.class })
 @RequiredArgsConstructor
 public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
 
