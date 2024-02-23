@@ -9,6 +9,8 @@ message Graph {
   bool isDirect = 4;
   repeated Vertex vertexList = 5;
   repeated Edge edgeList = 6;
+  bool isNamed = 7;
+  string name = 8;
 }
 
 message Vertex {

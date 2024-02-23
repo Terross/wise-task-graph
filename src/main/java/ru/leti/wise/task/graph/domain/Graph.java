@@ -16,7 +16,9 @@ public class Graph {
 
     private int vertexCount;
     private int edgeCount;
-    private boolean isDirect;
+    private Boolean isDirect;
+    private String name;
+    private Boolean isNamed;
     private List<Edge> edgeList;
     private List<Vertex> vertexList;
 }

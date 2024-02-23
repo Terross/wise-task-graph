@@ -5,11 +5,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import ru.leti.wise.task.graph.GraphOuterClass;
-import ru.leti.wise.task.graph.domain.Color;
-import ru.leti.wise.task.graph.domain.Edge;
-import ru.leti.wise.task.graph.domain.Graph;
-import ru.leti.wise.task.graph.domain.Vertex;
+import ru.leti.wise.task.graph.domain.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -17,8 +15,6 @@ import java.util.UUID;
         collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface GraphMapper {
 
-
-    @Mapping(target = "isDirect", source = "direct")
     GraphOuterClass.Graph graphToGraphResponse(Graph graph);
 
     @Mapping(target = "XCoordinate", source = "xCoordinate")
@@ -27,8 +23,9 @@ public interface GraphMapper {
 
     GraphOuterClass.Edge edgeToEdgeResponse(Edge edge);
 
-    @Mapping(target = "direct", source = "isDirect")
     Graph graphRequestToGraph(GraphOuterClass.Graph graph);
+
+    List<GraphOuterClass.Graph> toGraphs(List<Graph> graphs);
 
     @Mapping(target = "xCoordinate", source = "XCoordinate")
     @Mapping(target = "yCoordinate", source = "YCoordinate")

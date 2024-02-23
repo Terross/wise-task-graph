@@ -3,7 +3,6 @@ package ru.leti.wise.task.graph.logic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import ru.leti.wise.task.graph.GraphGrpc;
 import ru.leti.wise.task.graph.GraphGrpc.GenerateGraphRequest;
 import ru.leti.wise.task.graph.GraphGrpc.GenerateGraphResponse;
 import ru.leti.wise.task.graph.mapper.GraphMapper;

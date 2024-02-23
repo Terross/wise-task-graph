@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import ru.leti.wise.task.graph.GraphOuterClass;
+import ru.leti.wise.task.graph.GraphGrpc;
 import ru.leti.wise.task.graph.GraphGrpc.CreateGraphResponse;
+import ru.leti.wise.task.graph.GraphOuterClass;
 import ru.leti.wise.task.graph.mapper.GraphMapper;
 import ru.leti.wise.task.graph.repository.GraphRepository;
 
@@ -17,7 +18,8 @@ public class CreateGraphOperation {
     private final GraphRepository graphRepository;
     private final GraphMapper graphMapper;
 
-    public Mono<CreateGraphResponse> activate(GraphOuterClass.Graph graph) {
+    public Mono<CreateGraphResponse> activate(GraphGrpc.CreateGraphRequest request) {
+        GraphOuterClass.Graph graph = request.getGraph();
         return graphRepository.save(graphMapper.graphRequestToGraph(graph))
                 .map((__) -> CreateGraphResponse
                         .newBuilder()

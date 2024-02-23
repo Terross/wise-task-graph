@@ -3,11 +3,13 @@ syntax = "proto3";
 package ru.leti.wise.task.graph;
 
 import "graph.proto";
+import "google/protobuf/empty.proto";
 
 service GraphService {
   rpc getGraphById (GetGraphByIdRequest) returns (GetGraphByIdResponse);
   rpc createGraph (CreateGraphRequest) returns (CreateGraphResponse);
   rpc generateRandomGraph (GenerateGraphRequest) returns (GenerateGraphResponse);
+  rpc getGraphLibrary (google.protobuf.Empty) returns (GetGraphLibraryResponse);
 }
 
 message GenerateGraphRequest {
@@ -15,6 +17,10 @@ message GenerateGraphRequest {
   int32 edgeCount = 2;
   bool isDirect = 3;
   bool isSaved = 4;
+}
+
+message GetGraphLibraryResponse {
+  repeated Graph graphList = 1;
 }
 
 message GenerateGraphResponse {
