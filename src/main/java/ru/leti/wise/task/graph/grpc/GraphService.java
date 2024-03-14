@@ -8,10 +8,7 @@ import org.lognet.springboot.grpc.GRpcService;
 import reactor.core.publisher.Mono;
 import ru.leti.wise.task.graph.GraphGrpc.*;
 import ru.leti.wise.task.graph.ReactorGraphServiceGrpc;
-import ru.leti.wise.task.graph.logic.CreateGraphOperation;
-import ru.leti.wise.task.graph.logic.GenerateRandomGraphOperation;
-import ru.leti.wise.task.graph.logic.GetGraphByIdOperation;
-import ru.leti.wise.task.graph.logic.GetGraphLibraryOperation;
+import ru.leti.wise.task.graph.logic.*;
 import ru.leti.wise.task.graph.util.LogGrpcInterceptor;
 
 import static java.util.UUID.fromString;
@@ -26,6 +23,7 @@ public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
     private final CreateGraphOperation createGraphOperation;
     private final GenerateRandomGraphOperation generateRandomGraphOperation;
     private final GetGraphLibraryOperation getGraphLibraryOperation;
+    private final RemoveGraphOperation removeGraphOperation;
 
     @Override
     public Mono<GetGraphByIdResponse> getGraphById(Mono<GetGraphByIdRequest> request) {
@@ -45,5 +43,10 @@ public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
     @Override
     public Mono<GetGraphLibraryResponse> getGraphLibrary(Mono<Empty> request) {
         return request.flatMap((__) -> getGraphLibraryOperation.activate());
+    }
+
+    @Override
+    public Mono<RemoveGraphResponse> removeGraph(Mono<RemoveGraphRequest> request) {
+        return request.flatMap(removeGraphOperation::activate);
     }
 }

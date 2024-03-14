@@ -10,6 +10,7 @@ service GraphService {
   rpc createGraph (CreateGraphRequest) returns (CreateGraphResponse);
   rpc generateRandomGraph (GenerateGraphRequest) returns (GenerateGraphResponse);
   rpc getGraphLibrary (google.protobuf.Empty) returns (GetGraphLibraryResponse);
+  rpc removeGraph (RemoveGraphRequest) returns (RemoveGraphResponse);
 }
 
 message GenerateGraphRequest {
@@ -17,6 +18,14 @@ message GenerateGraphRequest {
   int32 edgeCount = 2;
   bool isDirect = 3;
   bool isSaved = 4;
+}
+
+message RemoveGraphRequest {
+  string id = 1;
+}
+
+message RemoveGraphResponse {
+  string id = 1;
 }
 
 message GetGraphLibraryResponse {
