@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+
+  wise-task-mongo:
+    image: mongo:latest
+    container_name: wise-task-mongo-2
+    ports:
+      - "27017:27017"
