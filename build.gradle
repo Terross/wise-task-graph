@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
 
-    implementation 'ru.leti:wise-task-library:1.0.3'
+    implementation 'ru.leti:wise-task-library:1.0.4'
 
     implementation 'io.github.lognet:grpc-spring-boot-starter:5.0.0'
     implementation 'com.salesforce.servicelibs:reactor-grpc-stub:1.2.3'
