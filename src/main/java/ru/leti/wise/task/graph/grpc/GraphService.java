@@ -15,15 +15,21 @@ import static java.util.UUID.fromString;
 
 @Slf4j
 @Observed
-@GRpcService(interceptors = { LogGrpcInterceptor.class })
+@GRpcService(interceptors = {LogGrpcInterceptor.class})
 @RequiredArgsConstructor
 public class GraphService extends ReactorGraphServiceGrpc.GraphServiceImplBase {
 
+    private final IsOwnerGraphOperation isOwnerGraphOperation;
     private final GetGraphByIdOperation getGraphByIdOperation;
     private final CreateGraphOperation createGraphOperation;
     private final GenerateRandomGraphOperation generateRandomGraphOperation;
     private final GetGraphLibraryOperation getGraphLibraryOperation;
     private final RemoveGraphOperation removeGraphOperation;
+
+    @Override
+    public Mono<IsOwnerGraphResponse> isOwnerGraph(Mono<IsOwnerGraphRequest> request) {
+        return request.flatMap(isOwnerGraphOperation::activate);
+    }
 
     @Override
     public Mono<GetGraphByIdResponse> getGraphById(Mono<GetGraphByIdRequest> request) {
