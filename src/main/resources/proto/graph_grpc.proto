@@ -6,11 +6,22 @@ import "graph.proto";
 import "google/protobuf/empty.proto";
 
 service GraphService {
+  rpc IsOwnerGraph(IsOwnerGraphRequest) returns (IsOwnerGraphResponse);
   rpc getGraphById (GetGraphByIdRequest) returns (GetGraphByIdResponse);
   rpc createGraph (CreateGraphRequest) returns (CreateGraphResponse);
   rpc generateRandomGraph (GenerateGraphRequest) returns (GenerateGraphResponse);
   rpc getGraphLibrary (google.protobuf.Empty) returns (GetGraphLibraryResponse);
   rpc removeGraph (RemoveGraphRequest) returns (RemoveGraphResponse);
+}
+
+
+message IsOwnerGraphRequest{
+  string user_id = 1;
+  string graph_id = 2;
+}
+
+message IsOwnerGraphResponse{
+  bool result = 1;
 }
 
 message GenerateGraphRequest {

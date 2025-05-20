@@ -13,6 +13,7 @@ public class Graph {
 
     @Id
     private UUID id;
+    private UUID authorId;
 
     private int vertexCount;
     private int edgeCount;
